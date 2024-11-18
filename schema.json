@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the game."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "The version of the game in semantic versioning format."
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description of the game."
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the author or organization."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL to the author's or organization's website."
+        }
+      },
+      "required": ["name", "url"]
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["git"],
+          "description": "The type of repository, e.g., git."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the repository."
+        },
+        "branch": {
+          "type": "string",
+          "description": "The branch of the repository."
+        }
+      },
+      "required": ["type", "url", "branch"]
+    },
+    "game": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The category of the game."
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Available game modes."
+        },
+        "minPlayers": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The minimum number of players."
+        },
+        "maxPlayers": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The maximum number of players."
+        },
+        "highscoreEnabled": {
+          "type": "boolean",
+          "description": "Whether the game supports a highscore system."
+        },
+        "engine": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the game engine."
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^\\d+\\.\\d+\\.\\d+$",
+              "description": "The version of the game engine in semantic versioning format."
+            }
+          },
+          "required": ["name", "version"]
+        }
+      },
+      "required": ["category", "modes", "minPlayers", "maxPlayers", "highscoreEnabled", "engine"]
+    }
+  },
+  "required": ["name", "version", "description", "author", "repository", "game"],
+  "additionalProperties": false
+}
